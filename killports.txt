@@ -1,0 +1,2 @@
+taskkill /im node.exe To kill all node ports
+taskkill /f /im node.exe To force kill all node ports
