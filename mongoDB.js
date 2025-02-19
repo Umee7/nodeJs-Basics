@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const app = express();
 const PORT = 8000;
 
-mongoose.connect('mongodb://127.0.0.1:27017/mongodob-practice');
+mongoose.connect('mongodb://127.0.0.1:27017/mongodobPractice');
 
 //Schema
 const userSchema = new mongoose.Schema({
@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     }
-})
+}, {timestamps: true})
 
 const User = mongoose.model("user", userSchema);
 
