@@ -15,11 +15,7 @@ const userSchema = new mongoose.Schema({
     },
 })
 
-const User = mongoose.model("crud", userSchema);
-
-
-
-
+const User = mongoose.model("user", userSchema);
 
 // Middleware to get body data
 app.use(express.urlencoded({extended: false}))
@@ -36,11 +32,22 @@ app.route("/")
     })
     return res.status(201).json(`user ${body.name} created...`);
 })
-.patch((req, res)=>{
+
+
+app.route("/user/:id")
+.get(async (req, res)=>{
+    const user = await User.findById(req.params.id);
+    if(!user) return res.status(404).json({error: "user not found"});
+    return res.json({user})
+})
+.patch(async (req, res)=>{
+    await User.findByIdAndUpdate(req.params, {name: "new"})
     return res.json({status: "user updated..."})
 })
-.delete((req, res)=>{
+.delete(async (req, res)=>{
+    await User.findByIdAndDelete(req.params.id);
     return res.json({status: "user deleted..."})
 })
+
 
 app.listen(PORT, ()=>{console.log(`port ${PORT} running...`)})
